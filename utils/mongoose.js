@@ -14,7 +14,7 @@ module.exports = {
             family: 4 // Use IPv4, skip trying IPv6
         };
          // Somehow this works and connects so don't change it thanks
-        mongoose.connect("mongodb+srv://Jerick:JerickPassword@teachertools.eojsd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", dbOptions);
+        mongoose.connect(process.env.mongoose, dbOptions);
         mongoose.set('useFindAndModify', false);
         mongoose.Promise = global.Promise;
 
