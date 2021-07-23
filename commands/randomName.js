@@ -7,17 +7,14 @@ const Client = require('../index').client;
 module.exports = {
     name: "random",
     description: "Randomly chooses one person from the room.",
-    syntax: "random {room code}",
+    syntax: "{room code}",
     category: "Main",
     execute(message, args) {
         Room.findOne({ Name: args[0]}, (err, room) => {
             if (err) console.log(err);
                 if (room != null) {
                     if(message.author.username == room.Owner){
-                        console.log('random??')
-                        console.log(room)
                         let index = Math.floor(Math.random() * room.__v)
-                        console.log(index)
                         message.channel.send(`The lucky person is ${room.People[index]}!! :clap:`)
                     }
                     else{

@@ -7,7 +7,7 @@ const room = require('../models/room');
 module.exports = {
     name: "close",
     description: "Closes your created room/class",
-    syntax: "",
+    syntax: "{room/class}",
     category: "Main",
     execute(message, args) {
     if(args[0]){

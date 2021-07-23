@@ -7,7 +7,7 @@ const room = require( '../models/room' );
 module.exports = {
     name: "join",
     description: "Lets you join a room",
-    syntax: "join {room/class} {code}",
+    syntax: "{room/class} {code}",
     category: "Main",
     execute ( message, args )
     {

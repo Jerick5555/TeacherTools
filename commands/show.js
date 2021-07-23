@@ -7,16 +7,13 @@ const Client = require('../index').client;
 module.exports = {
     name: "show",
     description: "Shows people in the room.",
-    syntax: "show {room code}",
+    syntax: "{room code}",
     category: "Main",
     execute(message, args) {
     if(args[0]){
         Room.findOne({ Name: args[0]}, (err, room) => {
             if (err) console.log(err);
                 if (room != null) {
-                    console.log('helllooooooo')
-                    console.log(room)
-
                     const embed = new Discord.MessageEmbed()
                     //can be formatted better
                     .setTitle(`Room Code: ${args[0]}`)
