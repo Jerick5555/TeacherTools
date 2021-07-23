@@ -10,6 +10,7 @@ module.exports = {
     syntax: "show {room code}",
     category: "Main",
     execute(message, args) {
+    if(args[0]){
         Room.findOne({ Name: args[0]}, (err, room) => {
             if (err) console.log(err);
                 if (room != null) {
@@ -21,9 +22,9 @@ module.exports = {
                     .setTitle(`Room Code: ${args[0]}`)
                     .setColor('#000000')
                     //access the new db here future matthew..
-                    .addField("Owner: ", Client.users.fetch(room.Owner), true)
-                    .addField('Participants: ', Client.users.fetch(room.People).join('/n'), true)
-
+                    .addField("Owner: ", room.Owner, true)
+                    .addField('Participants: ',(room.__v != 0) ? room.People.join('\n') : 'Room Empty')
+                    
                     message.channel.send(embed);
                 }
                 
@@ -31,5 +32,9 @@ module.exports = {
                 message.channel.send("Invaild code!");
             }
         });
+    }
+    else{
+        message.channel.send("Please specify the room.");
+    }
     }
 };

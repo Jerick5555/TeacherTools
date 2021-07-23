@@ -10,6 +10,7 @@ module.exports = {
     syntax: "",
     category: "Main",
     execute(message, args) {
+    if(args[0]){
         if (args[0].toLowerCase() == "room") {
             Room.findOne({ Owner: message.author.id }, async (err, room) => {
                 if (err) console.log(err);
@@ -37,5 +38,10 @@ module.exports = {
         else{
             message.channel.send("Specify room or class");
         }
+    }
+    else{
+        message.channel.send('Please specify what to close.')
+    }
+        
     }
 };

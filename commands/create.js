@@ -10,8 +10,9 @@ module.exports = {
     syntax: "",
     category: "Main",
     execute(message, args) {
+    if(args[0]){
         if (args[0].toLowerCase() == "room") {
-            Room.findOne({ Owner: message.author.id }, async (err, room) => {
+            Room.findOne({ Owner: message.author.username }, async (err, room) => {
                 if (err) console.log(err);
                 if (room == null) {
                     async function generatePassword() {
@@ -37,7 +38,7 @@ module.exports = {
                         _id: mongoose.Types.ObjectId(),
                         Name: code,
                         People: [],
-                        Owner: message.author.id
+                        Owner: message.author.username
                     })
 
                     room.save()
@@ -93,5 +94,9 @@ module.exports = {
         else{
             message.channel.send("Specify room or class");
         }
+    }
+    else{
+        message.channel.send('Please specify what to close.')
+    }
     }
 };
