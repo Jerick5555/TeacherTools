@@ -4,7 +4,8 @@ const client = new Discord.Client();
 const { prefix } = require('./config.json');
 const fs = require('fs');
 client.mongoose = require('./utils/mongoose');
-
+const dotenv = require('dotenv');
+dotenv.config(); //Build the process.env object.
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -16,6 +17,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     exports.client = client;
+    console.log('Teacher Tools started')
 });
 
 // Tells us how many servers have our bot
