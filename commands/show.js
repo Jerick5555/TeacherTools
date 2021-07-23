@@ -22,6 +22,7 @@ module.exports = {
                     .setColor('#000000')
                     //access the new db here future matthew..
                     .addField("Owner: ", Client.users.fetch(room.Owner), true)
+                    .addField('Participants: ', Client.users.fetch(room.People).join('/n'), true)
 
                     message.channel.send(embed);
                 }
