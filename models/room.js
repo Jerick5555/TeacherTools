@@ -6,4 +6,4 @@ const roomSchema = mongoose.Schema({
     Owner: String
 });
 
-module.exports = mongoose.model('Room', dataSchema, 'Rooms');
+module.exports = mongoose.model('Room', roomSchema, 'Rooms');
