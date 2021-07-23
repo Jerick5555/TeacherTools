@@ -12,12 +12,23 @@ module.exports = {
         Room.findOne({ Name: args[0]}, (err, room) => {
             if (err) console.log(err);
             if (room != null) {
-                room.People.push(message.author.id);
+                if (message.author.id != room.Owner){
+                    if(!room.People.includes(message.author.id)){
+                        room.People.push(message.author.id);
 
-                room.save()
-                    .then(result => console.log(result))
-                    .catch(err => console.error(err));
-                message.channel.send(`You have successfully joined the room!`);
+                        room.save()
+                            .then(result => console.log(result))
+                            .catch(err => console.error(err));
+                        message.channel.send(`You have successfully joined the room!`);
+                    }
+                    else{
+                        message.channel.send('You have already joined the room.')
+                    }
+                }
+                else{
+                    message.channel.send('Room Owner cannot join the room!')
+                }
+                
             }
             else {
                 message.channel.send("Invaild code!");
