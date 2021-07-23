@@ -1,38 +1,86 @@
-const Room = require('../models/room');
-const mongoose = require('mongoose');
-const Discord = require('discord.js');
-const room = require('../models/room');
+const Room = require( '../models/room' );
+const Class = require( '../models/class' );
+const mongoose = require( 'mongoose' );
+const Discord = require( 'discord.js' );
+const room = require( '../models/room' );
 
 module.exports = {
     name: "join",
     description: "Lets you join a room",
     syntax: "",
     category: "Main",
-    execute(message, args) {
-        Room.findOne({ Name: args[0]}, (err, room) => {
-            if (err) console.log(err);
-            if (room != null) {
-                if (message.author.id != room.Owner){
-                    if(!room.People.includes(message.author.id)){
-                        room.People.push(message.author.id);
+    execute ( message, args )
+    {
+        if ( args[ 0 ].toLowerCase() == "room" )
+        {
+            Room.findOne( { Name: args[ 0 ] }, ( err, room ) =>
+            {
+                if ( err ) console.log( err );
+                if ( room != null )
+                {
+                    if ( message.author.id != room.Owner )
+                    {
+                        if ( !room.People.includes( message.author.id ) )
+                        {
+                            room.People.push( message.author.id );
 
-                        room.save()
-                            .then(result => console.log(result))
-                            .catch(err => console.error(err));
-                        message.channel.send(`You have successfully joined the room!`);
+                            room.save()
+                                .then( result => console.log( result ) )
+                                .catch( err => console.error( err ) );
+                            message.channel.send( `You have successfully joined the room!` );
+                        }
+                        else
+                        {
+                            message.channel.send( 'You have already joined the room.' )
+                        }
                     }
-                    else{
-                        message.channel.send('You have already joined the room.')
+                    else
+                    {
+                        message.channel.send( 'Room Owner cannot join the room!' )
                     }
                 }
-                else{
-                    message.channel.send('Room Owner cannot join the room!')
+                    else
+                {
+                    message.channel.send( "Invaild code!" );
                 }
-                
-            }
-            else {
-                message.channel.send("Invaild code!");
-            }
-        });
+            } );
+        }
+        else if ( args[ 0 ].toLowerCase() == "class" )
+        {
+            Class.findOne( { Name: args[ 1 ] }, ( err, aClass ) =>
+            {
+                if ( err ) console.log( err );
+                if ( aClass != null )
+                {
+                    if ( message.author.id != room.Owner )
+                    {
+                        if ( !room.People.includes( message.author.id ) )
+                        {
+                            aClass.Students.push( message.author.id );
+
+                            aClass.save()
+                                .then( result => console.log( result ) )
+                                .catch( err => console.error( err ) );
+                            message.channel.send( `You have successfully joined the room!` );
+                        }
+                        else
+                        {
+                            message.channel.send( 'You have already joined the room.' )
+                        }
+                    }
+                    else
+                    {
+                        message.channel.send( 'Room Owner cannot join the room!' )
+                    }
+                }
+                else
+                {
+                    message.channel.send( "Invaild code!" );
+                }
+            });
+        }
+        else {
+        message.channel.send( "Specify room or class" );
     }
+}
 };
