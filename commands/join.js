@@ -21,11 +21,11 @@ module.exports = {
                     if ( err ) console.log( err );
                     if ( room != null )
                     {
-                        if ( message.author.username != room.Owner )
+                        if ( message.author.id != room.Owner )
                         {
-                            if ( !room.People.includes( message.author.username ) )
+                            if ( !room.People.includes( message.author.id ) )
                             {
-                                room.People.push( message.author.username );
+                                room.People.push( message.author.id );
 
                                 room.save()
                                     .then( result => console.log( result ) )
@@ -55,9 +55,9 @@ module.exports = {
                     if ( err ) console.log( err );
                     if ( aClass != null )
                     {
-                        if ( message.author.name != room.Owner )
+                        if ( message.author.id != aClass.Teacher )
                         {
-                            if ( !room.People.includes( message.author.id ) )
+                            if ( !aClass.Students.includes( message.author.id ) )
                             {
                                 aClass.Students.push( message.author.id );
 

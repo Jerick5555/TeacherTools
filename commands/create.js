@@ -12,7 +12,7 @@ module.exports = {
     execute(message, args) {
     if(args[0]){
         if (args[0].toLowerCase() == "room") {
-            Room.findOne({ Owner: message.author.username }, async (err, room) => {
+            Room.findOne({ Owner: message.author.id }, async (err, room) => {
                 if (err) console.log(err);
                 if (room == null) {
                     async function generatePassword() {
@@ -38,7 +38,7 @@ module.exports = {
                         _id: mongoose.Types.ObjectId(),
                         Name: code,
                         People: [],
-                        Owner: message.author.username
+                        Owner: message.author.id
                     })
 
                     room.save()

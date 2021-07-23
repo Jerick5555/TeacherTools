@@ -13,9 +13,15 @@ module.exports = {
         Room.findOne({ Name: args[0]}, (err, room) => {
             if (err) console.log(err);
                 if (room != null) {
-                    if(message.author.username == room.Owner){
-                        let index = Math.floor(Math.random() * room.__v)
-                        message.channel.send(`The lucky person is ${room.People[index]}!! :clap:`)
+                    if(message.author.id == room.Owner){
+                        if(room.__v > 2){
+                            let index = Math.floor(Math.random() * room.__v)
+                            message.channel.send(`The lucky person is <@${room.People[index]}> !! :clap:`)
+                        }
+                        else{
+                            message.channel.send('There are too few people in the room to do a random.')
+                        }
+                        
                     }
                     else{
                         message.channel.send('Only the room owner can get random names.')
