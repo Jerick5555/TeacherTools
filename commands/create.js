@@ -8,10 +8,10 @@ module.exports = {
     description: "Sets up a new room",
     syntax: "",
     execute(message, args) {
-        Room.findOne({ Owner: message.author.id }, (err, room) => {
+        Room.findOne({ Owner: message.author.id }, async (err, room) => {
             if (err) console.log(err);
             if (room == null) {
-                function generatePassword() {
+                async function generatePassword() {
                     while (true) {
                         var length = 8,
                         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -20,14 +20,15 @@ module.exports = {
                             retVal += charset.charAt(Math.floor(Math.random() * n));
                         }
 
-                        room = Room.findOne({ Name: retVal }).exec();
+                        room = await Room.findOne({ Name: retVal }).exec();
+                        console.log(room)
                         if (!room) {
                             return retVal;
                         }
                     }
                 }
 
-                code = generatePassword()
+                code = await generatePassword()
 
                 room = new Room({
                     _id: mongoose.Types.ObjectId(),

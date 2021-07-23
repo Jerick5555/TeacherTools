@@ -8,13 +8,14 @@ module.exports = {
     description: "Closes your created room",
     syntax: "",
     execute(message, args) {
-        Room.deleteOne({ Owner: message.author.id }, (err, room) => {
+        Room.findOne({ Owner: message.author.id }, async (err, room) => {
             if (err) console.log(err);
-            if (room == null) {
-                message.channel.send("You do not have a room");
-            }
-            else {
+            if (room != null) {
+                Room.deleteOne({ Owner: message.author.id }).exec();
                 message.channel.send("You successfully closed your room!");
+            }
+            else{
+                message.channel.send("You do not have a room");
             }
         });
     }

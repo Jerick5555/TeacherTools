@@ -39,3 +39,5 @@ client.on('message', message => {
         command.execute(message, args);
     }
 });
+
+client.mongoose.init();
