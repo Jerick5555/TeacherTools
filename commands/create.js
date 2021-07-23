@@ -8,9 +8,9 @@ module.exports = {
     description: "Sets up a new room",
     syntax: "",
     execute(message, args) {
-        Room.findOne({ Owner: message.author.id }, (err, owner) => {
+        Room.findOne({ Owner: message.author.id }, (err, room) => {
             if (err) console.log(err);
-            if (owner == null) {
+            if (room == null) {
                 function generatePassword() {
                     while (true) {
                         var length = 8,
