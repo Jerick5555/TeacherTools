@@ -7,6 +7,7 @@ module.exports = {
     name: "join",
     description: "Lets you join a room",
     syntax: "",
+    category: "Main",
     execute(message, args) {
         Room.findOne({ Name: args[0]}, (err, room) => {
             if (err) console.log(err);

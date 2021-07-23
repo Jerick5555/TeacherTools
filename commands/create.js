@@ -7,6 +7,7 @@ module.exports = {
     name: "create",
     description: "Sets up a new room",
     syntax: "",
+    category: "Main",
     execute(message, args) {
         Room.findOne({ Owner: message.author.id }, async (err, room) => {
             if (err) console.log(err);
