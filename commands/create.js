@@ -95,7 +95,7 @@ module.exports = {
                         aClass.save()
                             .then(result => console.log(result))
                             .catch(err => console.error(err));
-                        message.channel.send(`You have been successfully made a class! Code is ${code}`);
+                        message.channel.send(`You have been successfully made a class, ${nickname}! Code is ${code}`);
                     }
                     else {
                         message.channel.send("You have already made a Class");
