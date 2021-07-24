@@ -9,7 +9,7 @@ module.exports = {
         const { prefix } = require('../config.json');
         message.channel.send('type help + {command name for specific help on that command}');
         const command = client.commands.get(args[0]) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(args[0]));
-    
+
         if (!command || args[0] == undefined) {
             let helpEmbed = new Discord.MessageEmbed()
                 .setColor('#FF69B4')
@@ -18,7 +18,7 @@ module.exports = {
             for (let commandName of client.commands.keys()) {
                 let categoryExists = false;
                 let commandCategory = client.commands.get(commandName).category;
-                
+
                 for (let i = 0; i < fieldsToAdd.length; i++) {
                     if (commandCategory == fieldsToAdd[i][0]) {
                         fieldsToAdd[i][1].push(commandName);
@@ -28,7 +28,7 @@ module.exports = {
                 if (!categoryExists) {
                     fieldsToAdd.push([commandCategory, [commandName]]);
                 }
-            
+
             }
 
             let numCategory = fieldsToAdd.length;
