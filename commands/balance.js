@@ -22,14 +22,21 @@ module.exports = {
                     message.channel.send("You do not have a valid class");
                 }
                 else {
-                    let name = message.member.user.tag.toString();
-                    name = name.split("#", name.length - 4);
-                    name = name[0];
-                    const embed = new Discord.MessageEmbed()
-                        .setTitle(name + 's Balance')
-                        .setColor('#000000')
-                        .addField(target.Students[0][transferTargetID].currency + ":moneybag:", "​");
-                    message.channel.send(embed);
+                    console.log(target.Students[message.author.id]);
+                    
+                        for (let k in target.Students) {
+                            if (target.Students[k][message.author.id].currency != null) {
+                                let name = message.member.user.tag.toString();
+                            name = name.split("#", name.length - 4);
+                            name = name[0];
+                            const embed = new Discord.MessageEmbed()
+                                .setTitle(name + 's Balance')
+                                .setColor('#000000')
+                                .addField(target.Students[k][message.author.id].currency + ":moneybag:", "​");
+                            message.channel.send(embed);
+                            }
+                        }
+                    
                 }
             });
         })
