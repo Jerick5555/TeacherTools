@@ -11,7 +11,7 @@ module.exports = {
     syntax: "{code}",
     category: "Main",
     execute(message, args) {
-        Class.findOne({ Name: args[0] }, (err, aClass) => {
+        Class.findOne({ Code: args[0] }, (err, aClass) => {
             if (err) console.log(err);
             if (aClass != null) {
                 // Finds if user is a Student or Teacher of the class
