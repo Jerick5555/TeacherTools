@@ -6,9 +6,9 @@ const room = require('../models/room');
 const User = require('../models/user');
 
 module.exports = {
-    name: "addShop",
-    description: "Lets teacher add an item to class shop",
-    syntax: "{item name} {cost}",
+    name: "removeShop",
+    description: "Lets teacher removes an item from class shop",
+    syntax: "{item name}",
     category: "Main",
     execute(message, args) {
         user = User.findOne({ UserID: message.author.id }).exec();
@@ -21,18 +21,15 @@ module.exports = {
             if (err) console.log(err);
             if (aClass != null) {
                 if (message.author.id == aClass.Teacher) {
-                    if(!args[1].isInteger()){
-                        message.channel.send("Cost of item must be a number");
-                        return;
-                    }
-                    obj = {Name: args[0], Cost: args[1]};
-                    aClass.Shop.push(obj);
-                    
+                    itemIndex = aClass.shop.findIndex(item => item.Name === args[0])
+                    if (itemIndex == -1){
+                        message.channel.send("Item does not exist");
+                    };
+                    aClass.shop.splice(itemIndex, 1);
+
                     aClass.save()
                     .then(result => console.log(result))
                     .catch(err => console.error(err));
-                    
-                    message.channel.send(`Added ${args[0]} with cost ${args[1]} to ${aClass.Name} shop`);
                 }
                 else {
                     message.channel.send(`You are not the Teacher of this class (${aClass.Name})`)
