@@ -14,7 +14,7 @@ module.exports = {
         if (args[0]) {
 
             if (args[0].toLowerCase() == "room") {
-                Room.findOne({ Name: args[1] }, (err, room) => {
+                Room.findOne({ Code: args[1] }, (err, room) => {
                     if (err) console.log(err);
                     if (room != null) {
                         if (message.author.id != room.Owner) {
@@ -24,10 +24,10 @@ module.exports = {
                                 room.save()
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
-                                message.channel.send(`You have successfully joined the room!`);
+                                message.channel.send(`You have successfully joined the room ${room.Name}!`);
                             }
                             else {
-                                message.channel.send('You have already joined the room.')
+                                message.channel.send(`You have already joined the room ${room.Name}.`)
                             }
                         }
                         else {
@@ -40,7 +40,7 @@ module.exports = {
                 });
             }
             else if (args[0].toLowerCase() == "class") {
-                Class.findOne({ Name: args[1] }, (err, aClass) => {
+                Class.findOne({ Code: args[1] }, (err, aClass) => {
                     if (err) console.log(err);
                     if (aClass != null) {
                         if (message.author.id != aClass.Teacher) {
@@ -54,9 +54,7 @@ module.exports = {
                                 aClass.save()
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
-                                message.channel.send(`You have successfully joined the room!`);
-
-                                // Changes current class code to the one joined
+                                message.channel.send(`You have successfully joined the room ${aclass.Name}!`);
                                 User.findOne({ id: message.author.id }, (err, user) => {
                                     if (err) console.log(err);
                                     if (user != null) {
@@ -77,11 +75,11 @@ module.exports = {
                                 });
                             }
                             else {
-                                message.channel.send('You have already joined the room.')
+                                message.channel.send(`You have already joined the class ${aclass.Name}.`)
                             }
                         }
                         else {
-                            message.channel.send('Room Owner cannot join the room!')
+                            message.channel.send('Class Owner cannot join the room!')
                         }
                     }
                     else {
