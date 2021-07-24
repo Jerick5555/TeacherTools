@@ -44,7 +44,8 @@ module.exports = {
                     if (err) console.log(err);
                     if (aClass != null) {
                         if (message.author.id != aClass.Teacher) {
-                            if (!aClass.Students.includes(message.author.id)) {
+                            // Checks if Student is already in the class
+                            if (Object.keys(aClass.Students).indexOf(message.author.id) == -1) {
                                 let obj = {};
                                 // Sets class points
                                 obj[message.author.id] = { currency: 0, inv: [] };
