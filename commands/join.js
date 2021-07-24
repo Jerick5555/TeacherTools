@@ -47,7 +47,7 @@ module.exports = {
                             if (!aClass.Students.includes(message.author.id)) {
                                 let obj = {};
                                 // Sets class points
-                                obj[message.author.id] = {currency: 0, inv: []};
+                                obj[message.author.id] = { currency: 0, inv: [] };
                                 aClass.Students.push(obj);
 
                                 aClass.save()
@@ -61,14 +61,14 @@ module.exports = {
                                     if (user != null) {
                                         user.currentClassCode = args[1];
                                     }
-                                    else{
+                                    else {
                                         // Makes user if it does not exist
                                         user = new User({
                                             _id: mongoose.Types.ObjectId(),
                                             userID: message.author.id,
                                             currentClassCode: args[1]
                                         });
-                
+
                                         user.save()
                                             .then(result => console.log(result))
                                             .catch(err => console.error(err));
