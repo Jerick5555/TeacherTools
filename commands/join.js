@@ -53,9 +53,6 @@ module.exports = {
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
                                 message.channel.send(`You have successfully joined the room!`);
-                                User.findOne({ id: message.author.id }, (err, user) => {
-
-                                });
                             }
                             else {
                                 message.channel.send('You have already joined the room.')
