@@ -3,7 +3,7 @@ const Class = require('../models/class');
 const mongoose = require('mongoose');
 const Discord = require('discord.js');
 const room = require('../models/room');
-
+const User = require('../models/user');
 module.exports = {
     name: "create",
     description: "Sets up a new room/class",
@@ -91,7 +91,24 @@ module.exports = {
                             Students: [],
                             Teacher: message.author.id
                         })
+                        User.findOne({ id: message.author.id }, (err, user) => {
+                            if (err) console.log(err);
+                            if (user != null) {
+                                user.currentClassCode = args[1];
+                            }
+                            else {
+                                // Makes user if it does not exist
+                                user = new User({
+                                    _id: mongoose.Types.ObjectId(),
+                                    userID: message.author.id,
+                                    currentClassCode: code
+                                });
 
+                                user.save()
+                                    .then(result => console.log(result))
+                                    .catch(err => console.error(err));
+                            }
+                        });
                         aClass.save()
                             .then(result => console.log(result))
                             .catch(err => console.error(err));
