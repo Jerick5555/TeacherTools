@@ -14,14 +14,15 @@ module.exports = {
         if (args[0]) {
 
             if (args[0].toLowerCase() == "room") {
+                let type;
                 if(args.length < 3){
-                    let type = { Code: args[2] }
+                    type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
                     }
                 }
                 else{
-                    let type = { Code: args[1] }
+                    type = { Code: args[1] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[1] }
                     }
@@ -55,14 +56,15 @@ module.exports = {
                 });
             }
             else if (args[0].toLowerCase() == "class") {
+                let type;
                 if(args.length < 3){
-                    let type = { Code: args[2] }
+                    type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
                     }
                 }
                 else{
-                    let type = { Code: args[1] }
+                    type = { Code: args[1] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[1] }
                     }
@@ -74,9 +76,9 @@ module.exports = {
                     if (aClass != null) {
                         if (message.author.id != aClass.Teacher) {
                             // Checks if Student is already in the class
-                            let index = aClass.Student.indexOf(message.author.id);
+                            let index = aClass.Students.indexOf(message.author.id);
                             if (index != -1) {
-                                aClass.Student.splice(index, 1);
+                                aClass.Students.splice(index, 1);
 
                                 aClass.save()
                                     .then(result => console.log(result))
