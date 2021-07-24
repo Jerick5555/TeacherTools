@@ -3,6 +3,7 @@ const Class = require('../models/class');
 const mongoose = require('mongoose');
 const Discord = require('discord.js');
 const room = require('../models/room');
+const User = require('../models/user');
 
 module.exports = {
     name: "join",
@@ -43,10 +44,11 @@ module.exports = {
                     if (err) console.log(err);
                     if (aClass != null) {
                         if (message.author.id != aClass.Teacher) {
-                            if (!aClass.Students.includes(message.author.id)) {
+                            // Checks if Student is already in the class
+                            if (Object.keys(aClass.Students).indexOf(message.author.id) == -1) {
                                 let obj = {};
                                 // Sets class points
-                                obj[message.author.id] = {currency: 0, inv: []};
+                                obj[message.author.id] = { currency: 0, inv: [] };
                                 aClass.Students.push(obj);
 
                                 aClass.save()
@@ -54,7 +56,22 @@ module.exports = {
                                     .catch(err => console.error(err));
                                 message.channel.send(`You have successfully joined the room ${aclass.Name}!`);
                                 User.findOne({ id: message.author.id }, (err, user) => {
+                                    if (err) console.log(err);
+                                    if (user != null) {
+                                        user.currentClassCode = args[1];
+                                    }
+                                    else {
+                                        // Makes user if it does not exist
+                                        user = new User({
+                                            _id: mongoose.Types.ObjectId(),
+                                            userID: message.author.id,
+                                            currentClassCode: args[1]
+                                        });
 
+                                        user.save()
+                                            .then(result => console.log(result))
+                                            .catch(err => console.error(err));
+                                    }
                                 });
                             }
                             else {
