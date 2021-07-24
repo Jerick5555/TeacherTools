@@ -46,13 +46,16 @@ module.exports = {
                             if (!aClass.Students.includes(message.author.id)) {
                                 let obj = {};
                                 // Sets class points
-                                obj[message.author.id] = 0;
+                                obj[message.author.id] = {currency: 0, inv: []};
                                 aClass.Students.push(obj);
 
                                 aClass.save()
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
                                 message.channel.send(`You have successfully joined the room!`);
+                                User.findOne({ id: message.author.id }, (err, user) => {
+
+                                });
                             }
                             else {
                                 message.channel.send('You have already joined the room.')
