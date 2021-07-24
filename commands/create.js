@@ -7,7 +7,7 @@ const room = require('../models/room');
 module.exports = {
     name: "create",
     description: "Sets up a new room/class",
-    syntax: "{room/class}",
+    syntax: "{room/class} {room/class name (optional)}",
     category: "Main",
     execute(message, args) {
         if (args[0]) {
@@ -33,10 +33,15 @@ module.exports = {
                         }
 
                         code = await generatePassword()
-
+                        let nickname = code;
+                        if(args.length > 1){
+                            args.shift()
+                            nickname = args.join(' ')
+                        }
                         room = new Room({
                             _id: mongoose.Types.ObjectId(),
-                            Name: code,
+                            Name: nickname,
+                            Code: code,
                             People: [],
                             Owner: message.author.id
                         })
@@ -44,7 +49,7 @@ module.exports = {
                         room.save()
                             .then(result => console.log(result))
                             .catch(err => console.error(err));
-                        message.channel.send(`You have been successfully made a room! Code is ${code}`);
+                        message.channel.send(`You have been successfully made a room, ${nickname}! Code is ${code}`);
                     }
                     else {
                         message.channel.send("You have already made a room");
@@ -73,10 +78,16 @@ module.exports = {
                         }
 
                         code = await generatePassword()
+                        let nickname = code;
+                        if(args.length > 1){
+                            args.shift()
+                            nickname = args.join(' ')
+                        }
 
                         aClass = new Class({
                             _id: mongoose.Types.ObjectId(),
-                            Name: code,
+                            Name: nickname,
+                            Code: code,
                             Students: [],
                             Teacher: message.author.id
                         })
