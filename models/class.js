@@ -4,7 +4,8 @@ const roomSchema = mongoose.Schema({
     Name: String,
     Code: String,
     Students: Array,
-    Teacher: String
+    Teacher: String,
+    Shop: Array
 });
 
 module.exports = mongoose.model('class', roomSchema, 'class');

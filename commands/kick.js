@@ -12,18 +12,19 @@ module.exports = {
     category: "Main",
     execute(message, args) {
         if (args[0]) {
-            let leaving = message.mentions.users.first();
-            console.log(leaving.User.id)
+            const leaving = message.mentions.users.first();
+            console.log(leaving)
+            console.log(leaving.id)
             if (args[0].toLowerCase() == "room") {
                 let type;
                 if(args.length < 3){
-                    let type = { Code: args[2] }
+                    type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
                     }
                 }
                 else{
-                    let type = { Code: args[1] }
+                    type = { Code: args[1] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[1] }
                     }
@@ -34,17 +35,17 @@ module.exports = {
                     if (err) console.log(err);
                     if (room != null) {
                         if (message.author.id == room.Owner) {
-                            let index = room.People.indexOf(leaving.User.id);
+                            let index = room.People.indexOf(leaving.id);
                             if (index != -1) {
                                 room.People.splice(index, 1);
                 
                                 room.save()
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
-                                message.channel.send(`${leaving.User.username} left the room ${room.Name}!`);
+                                message.channel.send(`${leaving.username} left the room ${room.Name}!`);
                             }
                             else {
-                                message.channel.send(`${leaving.User.username} is not in the room ${room.Name}.`)
+                                message.channel.send(`${leaving.username} is not in the room ${room.Name}.`)
                             }
                         }
                         else {
@@ -57,15 +58,15 @@ module.exports = {
                 });
             }
             else if (args[0].toLowerCase() == "class") {
-                let type;   
+                let type;
                 if(args.length < 3){
-                    let type = { Code: args[2] }
+                    type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
                     }
                 }
                 else{
-                    let type = { Code: args[1] }
+                    type = { Code: args[1] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[1] }
                     }
@@ -75,19 +76,19 @@ module.exports = {
                 Class.findOne(type, (err, aClass) => {
                     if (err) console.log(err);
                     if (aClass != null) {
-                        if (message.author.id != aClass.Teacher) {
+                        if (message.author.id == aClass.Teacher) {
                             // Checks if Student is already in the class
-                            let index = aClass.Student.indexOf(leaving.User.id);
+                            let index = aClass.Students.indexOf(leaving.id);
                             if (index != -1) {
                                 aClass.Student.splice(index, 1);
 
                                 aClass.save()
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
-                                message.channel.send(`${leaving.User.username} left the class ${aclass.Name}!`);
+                                message.channel.send(`${leaving.username} left the class ${aClass.Name}!`);
                             }
                             else {
-                                message.channel.send(`${leaving.User.username} is not in the class ${aclass.Name}.`)
+                                message.channel.send(`${leaving.username} is not in the class ${aClass.Name}.`)
                             }
                         }
                         else {
