@@ -124,7 +124,7 @@ module.exports = {
             }
         }
         else {
-            message.channel.send('Please specify what to close.')
+            message.channel.send('Please specify what to create.')
         }
     }
 };
