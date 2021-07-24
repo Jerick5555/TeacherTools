@@ -55,7 +55,7 @@ module.exports = {
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
                                 message.channel.send(`You have successfully joined the room ${aClass.Name}!`);
-                                User.findOne({ id: message.author.id }, (err, user) => {
+                                User.findOne({ userID: message.author.id }, (err, user) => {
                                     if (err) console.log(err);
                                     if (user != null) {
                                         user.currentClassCode = args[1];

@@ -17,7 +17,7 @@ module.exports = {
             console.log(leaving.id)
             if (args[0].toLowerCase() == "room") {
                 let type;
-                if(args.length < 3){
+                if(args.length == 3){
                     type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
@@ -59,7 +59,7 @@ module.exports = {
             }
             else if (args[0].toLowerCase() == "class") {
                 let type;
-                if(args.length < 3){
+                if(args.length == 3){
                     type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
