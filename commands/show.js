@@ -17,10 +17,9 @@ module.exports = {
                 .setTitle(`Rooms`)
                 .setColor('#000000')
             function displayPeople(room) {
-                // __v is num of People
-                if (room.__v != 0) {
+                if (room.People.length != 0) {
                     let pings = []
-                    for (let i = 0; i < room.__v; i++) {
+                    for (let i = 0; i < room.People.length ; i++) {
                         pings.push(`<@${room.People[i]}>`)
                     }
                     embed.addField('Participants: ', pings.join('\n'))
@@ -60,12 +59,10 @@ module.exports = {
                 .setColor('#000000')
 
             function displayStudents(classroom) {
-                // __v is num of Students
-                console.log(classroom.__v)
-                if (classroom.__v != 0) {
+                if (classroom.Students.length != 0) {
                     let pings = []
-                    for (let i = 0; i < classroom.__v; i++) {
-                        pings.push(`<@${classroom.Students[i]}>`)
+                    for (let i = 0; i < classroom.Students.length; i++) {
+                        pings.push(`<@${Object.keys(classroom.Students[i])}>`)
                     }
                     embed.addField('Classmates: ', pings.join('\n'))
                 }
