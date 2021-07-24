@@ -15,7 +15,6 @@ module.exports = {
             if (err) console.log(err);
             if (aClass != null) {
                 // Finds if user is a Student or Teacher of the class
-                console.log(aClass.Students.find(student => student[message.author.id]))
                 if (aClass.Students.find(student => student[message.author.id]) || message.author.id == aClass.Teacher) {
                     // Changes current class code
                     User.findOne({ id: message.author.id }, (err, user) => {
