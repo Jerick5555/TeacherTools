@@ -3,6 +3,7 @@ const Class = require('../models/class');
 const mongoose = require('mongoose');
 const Discord = require('discord.js');
 const room = require('../models/room');
+const User = require('../models/user');
 
 module.exports = {
     name: "join",
@@ -53,8 +54,25 @@ module.exports = {
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
                                 message.channel.send(`You have successfully joined the room!`);
-                                User.findOne({ id: message.author.id }, (err, user) => {
 
+                                // Changes current class code to the one joined
+                                User.findOne({ id: message.author.id }, (err, user) => {
+                                    if (err) console.log(err);
+                                    if (user != null) {
+                                        user.currentClassCode = args[1];
+                                    }
+                                    else{
+                                        // Makes user if it does not exist
+                                        user = new User({
+                                            _id: mongoose.Types.ObjectId(),
+                                            userID: message.author.id,
+                                            currentClassCode: args[1]
+                                        });
+                
+                                        user.save()
+                                            .then(result => console.log(result))
+                                            .catch(err => console.error(err));
+                                    }
                                 });
                             }
                             else {
