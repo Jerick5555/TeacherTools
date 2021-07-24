@@ -15,7 +15,7 @@ module.exports = {
 
             if (args[0].toLowerCase() == "room") {
                 let type;
-                if(args.length < 3){
+                if(args.length = 3){
                     type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
@@ -57,7 +57,8 @@ module.exports = {
             }
             else if (args[0].toLowerCase() == "class") {
                 let type;
-                if(args.length < 3){
+                console.log(args)
+                if(args.length = 3){
                     type = { Code: args[2] }
                     if(args[1].toLowerCase() == 'name'){
                         type = { Name: args[2] }
@@ -83,10 +84,10 @@ module.exports = {
                                 aClass.save()
                                     .then(result => console.log(result))
                                     .catch(err => console.error(err));
-                                message.channel.send(`You have successfully left the class ${aclass.Name}!`);
+                                message.channel.send(`You have successfully left the class ${aClass.Name}!`);
                             }
                             else {
-                                message.channel.send(`You are not in the class ${aclass.Name}.`)
+                                message.channel.send(`You are not in the class ${aClass.Name}.`)
                             }
                         }
                         else {
